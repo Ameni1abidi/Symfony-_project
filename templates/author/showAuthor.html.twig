@@ -1,0 +1,6 @@
+<h1>details d'un auteur </h1>
+<h2>nom de l'auteur: {{ a.username }}</h2>
+<p>email: {{ a.email }}</p> 
+<p>nombre de livres: {{ a.nb_books }}</p>
+<img src="{{ a.picture }}" alt="{{a.username }}">
+<p><a href="{{ path('app_list_author') }}">retour a la liste </a></p>
