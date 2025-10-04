@@ -1,0 +1,15 @@
+<h1>  affiche liste des auteurs </h1>
+<table border = "1">
+    <tr>
+        <th>Id</th>
+        <th>username</th>
+        <th>email</th>
+    </tr>
+        {% for list in a %}
+            <tr>
+                <td>{{ list.id }}</td>
+                <td>{{ list.username |upper}}</td>
+                <td>{{ list.email }}</td>
+                </tr>
+        {% endfor %}
+    </table>

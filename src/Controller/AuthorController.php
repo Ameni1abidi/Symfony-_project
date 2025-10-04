@@ -5,6 +5,9 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\AuthorRepository;
+use App\Entity\Author;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class AuthorController extends AbstractController
 {
@@ -59,5 +62,22 @@ final class AuthorController extends AbstractController
             'a' => $author,
         ]);
     }
+    #[Route('/affiche_author', name: 'app_affiche_author')]
+    public function show(AuthorRepository $repoAuthor): Response {
+        
+        $list= $repoAuthor->findAll();
+        return $this->render('author/affiche.html.twig',[
+            'a'=>$list
+        ]);}
 
+    #[Route('/add_author', name: 'app_add_author')]
+       public function addStatique( EntityManagerInterface $entitymanager): Response {
+        $author1 = new Author();
+        $author1->setUsername('Albert Camus');
+        $author1->setEmail('albertCamus@gmail.com');
+        $entitymanager->persist($author1);
+        $entitymanager->flush();
+        return $this->redirectToRoute('app_affiche_author')
+         ;
+       }
 }
