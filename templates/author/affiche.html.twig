@@ -4,12 +4,17 @@
         <th>Id</th>
         <th>username</th>
         <th>email</th>
+        <th>Actions</th>
     </tr>
         {% for list in a %}
             <tr>
                 <td>{{ list.id }}</td>
                 <td>{{ list.username |upper}}</td>
                 <td>{{ list.email }}</td>
-                </tr>
+                <td>
+                <a href="{{path ('app_edit_author',{'id': list.id})}}" >edit </a>
+                <a href ="{{path ('app_delete_author',{'id' : list.id })}}" >delete</a>
+                </td>
+            </tr>
         {% endfor %}
     </table>
