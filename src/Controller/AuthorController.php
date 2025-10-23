@@ -123,7 +123,7 @@ final class AuthorController extends AbstractController
 
        #[Route('/delete_author/{id}', name: 'app_delete_author')]
        public function delete(int $id, EntityManagerInterface $entity_manager): Response {
-        //$author->$authorRepository->find($id);(avec parametre AuthorRepository $authorRepository)
+        //$author=$authorRepository->find($id);(avec parametre AuthorRepository $authorRepository)
         $author = $entity_manager->getRepository(Author::class)->find($id);
         if ($author) {
            $entity_manager->remove($author);
@@ -131,10 +131,5 @@ final class AuthorController extends AbstractController
         }
         return $this->redirectToRoute('app_affiche_author');
        }
-       #[Route('/add_book', name :'app_add_book')]
-       public function Addbook (){
-        
-
-
-       }
+       
 }

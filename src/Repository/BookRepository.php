@@ -40,4 +40,14 @@ class BookRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+
+    public function findCategory(){
+        $entitymanager = $this -> getEntityManager();
+        $query =$entitymanager 
+        ->createQuery('SELECT b FROM App\Entity\Book b WHERE b.category LIKE :category')
+        ->setParameter('category','sciences-Fiction');
+        return $query -> getResult();
+
+    }
 }
