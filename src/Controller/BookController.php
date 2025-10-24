@@ -21,32 +21,47 @@ final class BookController extends AbstractController
         ]);
     }
 
-    #[Route('/add_book', name: 'app_add_book')]
-    public function addBook(): Response
-    {
-        return $this->render('book/add.html.twig', [
-            'controller_name' => 'BookController',
-        ]);
-    }
+        
+    
     #[Route('/add_book',name:'app_add_book')]
-    public function addBookRequest (Request $request, EntityManagerInterface $entitymanager): Response {
-           $books = new Book();
-           $form = $this->createForm(BookType::class, $books);
-           //$form -> add('save',SubmitType);
+  
+public function addBook(Request $request, EntityManagerInterface $entityManager): Response
+{
+    $book = new Book();
+    $form = $this->createForm(BookType::class, $book);
+    $form->handleRequest($request);
 
-           $form->handleRequest($request);
-           if ($form->isSubmitted() && $form->isValid()) {
-               $entitymanager->persist($books);
-               $entitymanager->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->persist($book);
+        $entityManager->flush();
 
-               return $this->redirectToRoute('app_affiche_book');
-           }
+        return $this->redirectToRoute('book_list');
+    }
 
-           return $this->render('book/add.html.twig', [
-               'form' => $form->createView(),
-           ]);
-       }
-#[Route('/affiche_book', name: 'app_affiche_book')]
+    return $this->render('book/add.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
+ public function editbook(Request $request, EntityManagerInterface $entityManager, BookRepository $bookRepository, int $id): Response{
+    $book = $bookRepository->find($id);
+    if (!$book) {
+        throw $this->createNotFoundException('The book does not exist');
+    }
+
+    $form = $this->createForm(BookType::class, $book);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->flush();
+
+        return $this->redirectToRoute('book_list');
+    }
+
+    return $this->render('book/edit.html.twig', [
+        'form' => $form->createView(),
+    ]);
+ }
+/*#[Route('/affiche_book', name: 'app_affiche_book')]
 public function affichebook(BookRepository $bookRepo): Response
 {
     $publishedbook = $bookRepo->findBy(['published' => true]);
@@ -57,10 +72,44 @@ public function affichebook(BookRepository $bookRepo): Response
         'numpublishedbook' => $numpublishedbook,
         'numunpublishedbook' => $numunpublishedbook,
     ]);
-}
-public function affiche (BookRepository $bookRepo):Response{
-    $books =$bookRepo->findCategory();
-    return $this ->render('book/affiche.html.twig');
-}
+}*/
+
+
+#[Route('/book/list', name: 'book_list')]
+public function list(BookRepository $bookRepository): Response
+
+    {
+        $books = $bookRepository->findAll();
+        $publishedBooks = $bookRepository->findBy(['published' => true]);
+        $unpublishedBooks = $bookRepository->findBy(['published' => false]);
+
+        return $this->render('book/list.html.twig', [
+             'books' => $books,
+            'publishedBooks' => $publishedBooks,
+            'unpublishedCount' => count($unpublishedBooks),
+            'publishedCount' => count($publishedBooks),
+        ]);
+    }
+
+     #[Route('/book/category', name: 'book_category')]
+    public function listByCategory(BookRepository $bookRepository): Response
+    {
+        $books = $bookRepository->findCategory();
+        
+
+        return $this->render('book/affiche.html.twig', [
+            'books' => $books,
+        ]);
+    }
+        #[Route('/book/date', name: 'book_date')]
+        public function listByDate(BookRepository $bookRepository): Response {
+            $datedebut = new \DateTime('2025-01-01');
+            $datefin = new \DateTime('2025-12-31');
+            $books = $bookRepository->findbook($datedebut, $datefin);
+
+            return $this->render('book/affiche.html.twig', [
+                'books' => $books,
+            ]);
+        }
 
 }

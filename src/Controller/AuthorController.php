@@ -66,7 +66,7 @@ final class AuthorController extends AbstractController
             'a' => $author,
         ]);
     }
-
+   //hedhyyy zeda 
     #[Route('/affiche_author', name: 'app_affiche_author')]
     public function show(AuthorRepository $repoAuthor): Response {
         
@@ -85,6 +85,7 @@ final class AuthorController extends AbstractController
         return $this->redirectToRoute('app_affiche_author')
          ;
        }
+       // ahayaa ye maryem dima nafsha 
         #[Route('/form_author', name: 'app_form_author')]
        public function addForm(Request $request, EntityManagerInterface $entitymanager): Response {
            $author = new Author();

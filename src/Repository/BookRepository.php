@@ -42,12 +42,26 @@ class BookRepository extends ServiceEntityRepository
     //    }
 
 
-    public function findCategory(){
-        $entitymanager = $this -> getEntityManager();
-        $query =$entitymanager 
-        ->createQuery('SELECT b FROM App\Entity\Book b WHERE b.category LIKE :category')
-        ->setParameter('category','sciences-Fiction');
-        return $query -> getResult();
+   public function findCategory(): array
+{
+    $entityManager = $this->getEntityManager();
 
-    }
+    $query = $entityManager->createQuery(
+        'SELECT b FROM App\Entity\Book b WHERE b.category LIKE :category'
+    )->setParameter('category', 'science-fiction'); 
+
+    return $query->getResult();
+}
+public function findbook(\DateTimeInterface $datedebut,\DateTimeInterface $datefin ):array{
+    
+
+    $query = $this->createQueryBuilder('b')
+        ->where('b.published = 1')
+        ->andWhere('b.publicationDate BETWEEN :datedebut AND :datefin')
+        ->setParameter('datedebut', $datedebut)
+        ->setParameter('datefin', $datefin)
+        ->getQuery();
+    return  $query->getResult();
+}
+
 }

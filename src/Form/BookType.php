@@ -17,24 +17,24 @@ class BookType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Ref')
-            ->add('Title')
-            ->add('PublicationDate', DateType::class, [
-                'format' => 'yyyy-MM-dd',
-            ])
-            ->add('Published')
-            ->add('Category' ,ChoiceType ::class,[
+            ->add('ref')
+            ->add('title')
+            ->add('publicationDate', DateType::class, [
+                'format' => 'yyyy-MM-dd',   
+                    ])
+            ->add('published')
+            ->add('category', ChoiceType::class, [
                 'choices' => [
-                    'Sciences-Fiction' => 'sciences-fiction',
-                    'Mystery' => 'mystery',
-                    'Autobiography' => 'autobiography',
-                ]
-            ])
-            ->add('Author', EntityType::class, [
+                'Science-Fiction' => 'science-fiction',
+                'Mystery' => 'mystery',
+                'Autobiography' => 'autobiography',
+        ],
+])
+            ->add('author', EntityType::class, [
                 'class' => Author::class,
-                'choice_label' => 'id',
-            ])
-        ;
+                'choice_label' => 'username',
+])
+;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

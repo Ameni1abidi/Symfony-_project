@@ -1,0 +1,9 @@
+<h1>edit le livre</h1>
+{{ form_start(form)}}
+{{form_row(form.title)}}
+{{form_row(form.publicationDate)}}
+{{form_row(form.isPublished)}}
+{{form_row(form.category)}}
+{{form_row(form.author)}}
+{{ form_end(form)}}
+{{ include('book/_form.html.twig', {'button_label': 'Update'}) }}

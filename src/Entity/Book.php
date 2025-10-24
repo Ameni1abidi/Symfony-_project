@@ -15,23 +15,24 @@ class Book
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Ref = null;
+    private ?string $ref = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Title = null;
+    private ?string $title = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $PublicationDate = null;
+    private ?\DateTime $publicationDate = null;
 
     #[ORM\Column]
-    private ?bool $Published = null;
+    private ?bool $published = true;
 
     #[ORM\Column(length: 255)]
-    private ?string $Category = null;
+    private ?string $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'books')]
-    private ?Author $Author = null;
+    private ?Author $author = null;
 
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -39,73 +40,67 @@ class Book
 
     public function getRef(): ?string
     {
-        return $this->Ref;
+        return $this->ref;
     }
 
-    public function setRef(string $Ref): static
+    public function setRef(string $ref): static
     {
-        $this->Ref = $Ref;
-
+        $this->ref = $ref;
         return $this;
     }
 
     public function getTitle(): ?string
     {
-        return $this->Title;
+        return $this->title;
     }
 
-    public function setTitle(string $Title): static
+    public function setTitle(string $title): static
     {
-        $this->Title = $Title;
-
+        $this->title = $title;
         return $this;
     }
 
     public function getPublicationDate(): ?\DateTime
     {
-        return $this->PublicationDate;
+        return $this->publicationDate;
     }
 
-    public function setPublicationDate(\DateTime $PublicationDate): static
+    public function setPublicationDate(\DateTime $publicationDate): static
     {
-        $this->PublicationDate = $PublicationDate;
-
+        $this->publicationDate = $publicationDate;
         return $this;
     }
 
     public function isPublished(): ?bool
     {
-        return $this->Published;
+        return $this->published;
     }
 
-    public function setPublished(bool $Published): static
+    public function setPublished(bool $published): static
     {
-        $this->Published = $Published;
-
+        $this->published = $published;
         return $this;
     }
 
     public function getCategory(): ?string
     {
-        return $this->Category;
+        return $this->category;
     }
 
-    public function setCategory(string $Category): static
+    public function setCategory(string $category): static
     {
-        $this->Category = $Category;
-
+        $this->category = $category;
         return $this;
     }
 
     public function getAuthor(): ?Author
     {
-        return $this->Author;
+        return $this->author;
     }
 
-    public function setAuthor(?Author $Author): static
+    public function setAuthor(?Author $author): static
     {
-        $this->Author = $Author;
-
+        $this->author = $author;
         return $this;
     }
 }

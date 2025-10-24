@@ -1,1 +1,14 @@
-<h1>list book</h1>
+
+<h1>Liste des livres par catégorie</h1>
+
+<ul>
+    {% for book in books %}
+        <li>{{ book.title }} - {{ book.category }} - {{ book.isPublished() ? 'Publié' : 'Non publié' }}</li>
+    {% endfor %}
+</ul>
+<h1>Liste des livres entre deux dates</h1>
+<ul>
+    {% for book in books %}
+        <li>{{ book.title }} - {{ book.publicationDate ? book.publicationDate|date('d/m/Y') : '' }}</li>
+    {% endfor %}
+</ul>

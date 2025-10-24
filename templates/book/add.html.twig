@@ -1,20 +1,6 @@
-<tr>
-    <td>{{ book.ref }}</td>
-    <td>{{ book.title }}</td>
-<th>ref </th>
-<th>title</th>
-<th>publicationDate</th>
-<th>published</th>
-<th>category</th>
-</tr>
-{% for book in books %}
-<tr>
-    <td>{{ book.ref }}</td>
-    <td>{{ book.title }}</td>
-    <td>{{ book.publicationDate|date('Y-m-d') }}</td>
-    <td>{{ book.published ? 'Yes' : 'No' }}</td>
-    <td>{{ book.category }}</td>
-</tr>
-{% endfor %}
+<h1>Ajouter un livre</h1>
 
-</table>
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">Enregistrer</button>
+{{ form_end(form) }}
